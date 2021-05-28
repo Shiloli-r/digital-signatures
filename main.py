@@ -121,7 +121,19 @@ def decrypt(d_no, d, N):
 
 
 def main():
-    pass
+    keys = generateKeys()
+    publicKey = keys[0]
+    privateKey = keys[1]
+    print("PublicKey = ", publicKey)
+    print("PrivateKey = ", privateKey)
+
+    text = int(input("\n Enter a number that represents a letter e.g. 1 for A, 2 for B, etc: "))
+
+    cipher = encrypt(text, publicKey[0], publicKey[1])
+    print(text, " Encrypted to ", cipher)
+
+    d = decrypt(cipher, privateKey[0], privateKey[1])
+    print(cipher, "Decrypted to ", d)
 
 
 if __name__ == '__main__':

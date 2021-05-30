@@ -1,4 +1,5 @@
 import itertools
+from hashlib import sha256
 from random import choice
 
 
@@ -116,6 +117,20 @@ def encrypt(e_no, e, N):
     return (e_no ** e) % N
 
 
+def sign(cipher):
+    """
+    creates a digital signature by hashing the cipher
+    :param cipher: text that has been encrypted by the public key
+    :return: the ciphertext concatenated with the signature
+    """
+    signature = sha256(str(cipher).encode()).hexdigest()
+    return str(cipher) + ' ' + signature
+
+
+def verify(cipher):
+    pass
+
+
 def decrypt(d_no, d, N):
     return(d_no ** d) % N
 
@@ -131,6 +146,8 @@ def main():
 
     cipher = encrypt(text, publicKey[0], publicKey[1])
     print(text, " Encrypted to ", cipher)
+    signed = sign(cipher)
+    print("Signed Cipher: ", signed)
 
     d = decrypt(cipher, privateKey[0], privateKey[1])
     print(cipher, "Decrypted to ", d)

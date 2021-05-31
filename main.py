@@ -127,8 +127,15 @@ def sign(cipher):
     return str(cipher) + ' ' + signature
 
 
-def verify(cipher):
-    pass
+def verify(signed_cipher, d, N):
+    cipher = signed_cipher.split(' ')[0]
+    signature = signed_cipher.split(' ')[1]
+    hash_ = sha256(str(cipher).encode()).hexdigest()
+    if hash_ == signature:
+        print(decrypt(int(cipher), d, N))
+        print("Signature Approved")
+    else:
+        print("Signature Does Not Match")
 
 
 def decrypt(d_no, d, N):
@@ -146,11 +153,11 @@ def main():
 
     cipher = encrypt(text, publicKey[0], publicKey[1])
     print(text, " Encrypted to ", cipher)
-    signed = sign(cipher)
-    print("Signed Cipher: ", signed)
+    signed_cipher = sign(cipher)
+    print("Signed Cipher: ", signed_cipher)
 
-    d = decrypt(cipher, privateKey[0], privateKey[1])
-    print(cipher, "Decrypted to ", d)
+    print(cipher, "Decrypted to ", )
+    verify(signed_cipher, privateKey[0], privateKey[1])
 
 
 if __name__ == '__main__':

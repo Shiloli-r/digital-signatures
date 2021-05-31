@@ -128,6 +128,13 @@ def sign(cipher):
 
 
 def verify(signed_cipher, d, N):
+    """
+    Verifies the digital signature - hashes the cipher text and compares with the digital signature
+    :param signed_cipher: a concatenation of the cipher text and the signature
+    :param d: private key value used for decryption
+    :param N: private key value used for decryption
+    :return:
+    """
     cipher = signed_cipher.split(' ')[0]
     signature = signed_cipher.split(' ')[1]
     hash_ = sha256(str(cipher).encode()).hexdigest()
